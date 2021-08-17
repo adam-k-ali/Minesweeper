@@ -8,6 +8,7 @@ import java.awt.*;
 public class Tile {
     private Point position;
     private boolean revealed;
+    private boolean flagged;
 
     Tile(Point position) {
         this.position = position;
@@ -24,5 +25,13 @@ public class Tile {
 
     public boolean isRevealed() {
         return revealed;
+    }
+
+    public void toggleFlag() {
+        this.flagged = !this.flagged;
+    }
+
+    public boolean isFlagged() {
+        return flagged;
     }
 }

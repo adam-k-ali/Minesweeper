@@ -17,11 +17,13 @@ public class Screen {
     private static GraphicsContext graphics;
 
     private static Image tileImage;
+    private static Image flagImage;
 
     public static void init() {
         graphics = Game.getCanvas().getGraphicsContext2D();
 
         tileImage = new Image(Screen.class.getResourceAsStream("/tile.png"));
+        flagImage = new Image(Screen.class.getResourceAsStream("/flag.png"));
 
         drawAllTiles();
     }
@@ -58,6 +60,9 @@ public class Screen {
             graphics.fillRect((tile.getPosition().getX() + 1) * getTileSize() - Properties.TILE_BORDER, tile.getPosition().getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Right
         } else {
             graphics.drawImage(tileImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+            if (tile.isFlagged()) {
+                graphics.drawImage(flagImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+            }
         }
     }
 
