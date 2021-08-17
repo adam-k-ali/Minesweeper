@@ -19,7 +19,7 @@ public class Main extends Application {
         Screen.init();
 
         VBox layout = new VBox();
-        layout.getChildren().addAll(Screen.getCanvas());
+        layout.getChildren().addAll(Game.getCanvas());
         Scene scene = new Scene(layout, Properties.MIN_WIDTH, Properties.MIN_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();

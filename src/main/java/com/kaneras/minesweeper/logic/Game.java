@@ -1,8 +1,12 @@
 package com.kaneras.minesweeper.logic;
 
+import com.kaneras.minesweeper.Properties;
+import javafx.scene.canvas.Canvas;
+
 import java.awt.*;
 
 public class Game {
+    private static Canvas canvas;
     private static Tile[][] tiles;
 
     // The number of tiles in each row/column
@@ -11,7 +15,17 @@ public class Game {
     public static void init(int gridSize, double mineDensity) {
         Game.gridSize = gridSize;
         generateTiles(mineDensity);
+
+        canvas = new Canvas(Properties.MIN_WIDTH, Properties.MIN_HEIGHT);
+        canvas.setFocusTraversable(true);
+        canvas.setOnMouseClicked(InputHandler::handleMouseClick);
+
     }
+
+    public static Canvas getCanvas() {
+        return canvas;
+    }
+
 
     public static Tile[][] getAllTiles() {
         if (tiles == null)

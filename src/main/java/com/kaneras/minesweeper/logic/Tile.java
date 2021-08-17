@@ -7,12 +7,22 @@ import java.awt.*;
  */
 public class Tile {
     private Point position;
+    private boolean revealed;
 
     Tile(Point position) {
         this.position = position;
+        this.revealed = false;
     }
 
     public Point getPosition() {
         return position;
+    }
+
+    public void reveal() {
+        this.revealed = true;
+    }
+
+    public boolean isRevealed() {
+        return revealed;
     }
 }
