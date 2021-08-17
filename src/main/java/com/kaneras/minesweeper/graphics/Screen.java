@@ -2,12 +2,11 @@ package com.kaneras.minesweeper.graphics;
 
 import com.kaneras.minesweeper.Properties;
 import com.kaneras.minesweeper.logic.Game;
-import com.kaneras.minesweeper.logic.InputHandler;
 import com.kaneras.minesweeper.logic.Tile;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 
 /**
@@ -18,12 +17,15 @@ public class Screen {
 
     private static Image tileImage;
     private static Image flagImage;
+    private static Image mineImage;
 
     public static void init() {
         graphics = Game.getCanvas().getGraphicsContext2D();
+        graphics.setFont(new Font(12.0D));
 
         tileImage = new Image(Screen.class.getResourceAsStream("/tile.png"));
         flagImage = new Image(Screen.class.getResourceAsStream("/flag.png"));
+        mineImage = new Image(Screen.class.getResourceAsStream("/mine.png"));
 
         drawAllTiles();
     }
@@ -58,6 +60,14 @@ public class Screen {
             graphics.fillRect(tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Left
             graphics.fillRect(tile.getPosition().getX() * getTileSize(), (tile.getPosition().getY() + 1) * getTileSize() - Properties.TILE_BORDER, getTileSize(), Properties.TILE_BORDER); // Bottom
             graphics.fillRect((tile.getPosition().getX() + 1) * getTileSize() - Properties.TILE_BORDER, tile.getPosition().getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Right
+
+            if (tile.isMine()) {
+                graphics.drawImage(mineImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+            } else {
+                if (tile.getValue() > 0) {
+                    graphics.fillText(String.valueOf(tile.getValue()), (tile.getPosition().getX() + 0.5) * getTileSize(), tile.getPosition().getY() * getTileSize() + graphics.getFont().getSize());
+                }
+            }
         } else {
             graphics.drawImage(tileImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
             if (tile.isFlagged()) {
@@ -67,7 +77,7 @@ public class Screen {
     }
 
     private static int getTileSize() {
-        return (int) (graphics.getCanvas().getWidth() / Game.getGridSize());
+        return (int) (graphics.getCanvas().getWidth() / Properties.GRID_SIZE);
     }
 
 }

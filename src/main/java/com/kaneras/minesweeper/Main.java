@@ -11,11 +11,11 @@ public class Main extends Application {
     private static Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         primaryStage = stage;
         primaryStage.setTitle("Minesweeper");
 
-        Game.init(Properties.GRID_SIZE, Properties.MINE_DENSITY);
+        Game.init();
         Screen.init();
 
         VBox layout = new VBox();

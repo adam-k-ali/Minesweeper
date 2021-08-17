@@ -4,22 +4,20 @@ import com.kaneras.minesweeper.Properties;
 import javafx.scene.canvas.Canvas;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Game {
     private static Canvas canvas;
     private static Tile[][] tiles;
+    private static Random random = new Random();
 
-    // The number of tiles in each row/column
-    private static int gridSize;
-
-    public static void init(int gridSize, double mineDensity) {
-        Game.gridSize = gridSize;
-        generateTiles(mineDensity);
+    public static void init() {
+        generateTiles();
+        calculateTileValues();
 
         canvas = new Canvas(Properties.MIN_WIDTH, Properties.MIN_HEIGHT);
         canvas.setFocusTraversable(true);
         canvas.setOnMouseClicked(InputHandler::handleMouseClick);
-
     }
 
     public static Canvas getCanvas() {
@@ -35,13 +33,20 @@ public class Game {
 
     /**
      * Generate all tiles for the game.
-     * @param mineDensity The probability of a tile being a mine
      */
-    private static void generateTiles(double mineDensity) {
-        tiles = new Tile[gridSize][gridSize];
-        for (int x = 0; x < gridSize; x++) {
-            for (int y = 0; y < gridSize; y++) {
-                tiles[x][y] = new Tile(new Point(x, y));
+    private static void generateTiles() {
+        tiles = new Tile[Properties.GRID_SIZE][Properties.GRID_SIZE];
+        for (int x = 0; x < Properties.GRID_SIZE; x++) {
+            for (int y = 0; y < Properties.GRID_SIZE; y++) {
+                tiles[x][y] = new Tile(new Point(x, y), random.nextDouble() <= Properties.MINE_DENSITY);
+            }
+        }
+    }
+
+    private static void calculateTileValues() {
+        for (Tile[] tiles : getAllTiles()) {
+            for (Tile tile : tiles) {
+                tile.calculateValue();
             }
         }
     }
@@ -50,7 +55,4 @@ public class Game {
         return tiles[point.x][point.y];
     }
 
-    public static int getGridSize() {
-        return gridSize;
-    }
 }
