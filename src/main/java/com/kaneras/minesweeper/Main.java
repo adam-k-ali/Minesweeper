@@ -2,6 +2,8 @@ package com.kaneras.minesweeper;
 
 import com.kaneras.minesweeper.logic.Game;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,6 +14,11 @@ public class Main extends Application {
         primaryStage = stage;
         primaryStage.setTitle("Minesweeper");
 
-        Game game = new Game(Preferences.GRID_SIZE, Preferences.MINE_DENSITY);
+        Game.init(Preferences.GRID_SIZE, Preferences.MINE_DENSITY);
+
+        VBox layout = new VBox();
+        Scene scene = new Scene(layout, 600, 600);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
