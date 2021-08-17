@@ -12,4 +12,7 @@ public class Tile {
         this.position = position;
     }
 
+    public Point getPosition() {
+        return position;
+    }
 }
