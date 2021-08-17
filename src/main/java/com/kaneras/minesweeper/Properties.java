@@ -5,8 +5,8 @@ package com.kaneras.minesweeper;
  */
 public class Properties {
     // Static properties
-    public static final int MIN_WIDTH = 200;
-    public static final int MIN_HEIGHT = 200;
+    public static final int MIN_WIDTH = 400;
+    public static final int MIN_HEIGHT = 400;
     public static final int TILE_BORDER = 1;
 
     // User definable properties
