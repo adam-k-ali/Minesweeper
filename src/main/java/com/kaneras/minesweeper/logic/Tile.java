@@ -10,16 +10,23 @@ import java.util.List;
  * A class to handle the logic for each tile.
  */
 public class Tile {
-    private Point position;
+    private final int x, y;
     private boolean isMine;
     private boolean revealed;
     private boolean flagged;
     private int value;
 
-    Tile(Point position, boolean isMine) {
-        this.isMine = isMine;
-        this.position = position;
+    Tile(int x, int y) {
+        this.x = x;
+        this.y = y;
         this.revealed = false;
+    }
+
+    /**
+     * Makes the tile a mine.
+     */
+    public void makeMine() {
+        this.isMine = true;
     }
 
     public void calculateValue() {
@@ -37,49 +44,45 @@ public class Tile {
 
     private Tile[] getSurroundingTiles() {
         List<Tile> tiles = new ArrayList<>();
-        for (Point point : getSurroundingPoints()) {
-            tiles.add(Game.getTileAtPos(point));
-        }
-        return tiles.toArray(new Tile[0]);
-    }
-
-    private Point[] getSurroundingPoints() {
-        List<Point> points = new ArrayList<>();
         // Above
-        if (position.y > 0)
-            points.add(new Point(position.x, position.y - 1));
+        if (y > 0)
+            tiles.add(Game.getTileAtPos(x, y - 1));
         // Left
-        if (position.x > 0)
-            points.add(new Point(position.x - 1, position.y));
+        if (x > 0)
+            tiles.add(Game.getTileAtPos(x - 1, y));
         // Below
-        if (position.y < Properties.GRID_SIZE - 1)
-            points.add(new Point(position.x, position.y + 1));
+        if (y < Properties.GRID_SIZE - 1)
+            tiles.add(Game.getTileAtPos(x, y + 1));
         // Right
-        if (position.x < Properties.GRID_SIZE - 1)
-            points.add(new Point(position.x + 1, position.y));
+        if (x < Properties.GRID_SIZE - 1)
+            tiles.add(Game.getTileAtPos(x + 1, y));
 
         // Above & Left
-        if (position.y > 0 && position.x > 0)
-            points.add(new Point(position.x - 1, position.y - 1));
+        if (y > 0 && x > 0)
+            tiles.add(Game.getTileAtPos(x - 1, y - 1));
         // Above & Right
-        if (position.y > 0 && position.x < Properties.GRID_SIZE - 1)
-            points.add(new Point(position.x + 1, position.y - 1));
+        if (y > 0 && x < Properties.GRID_SIZE - 1)
+            tiles.add(Game.getTileAtPos(x + 1, y - 1));
         // Below & Left
-        if (position.y < Properties.GRID_SIZE - 1 && position.x > 0)
-            points.add(new Point(position.x - 1, position.y + 1));
+        if (y < Properties.GRID_SIZE - 1 && x > 0)
+            tiles.add(Game.getTileAtPos(x - 1, y + 1));
         // Below & Right
-        if (position.y < Properties.GRID_SIZE - 1 && position.x < Properties.GRID_SIZE - 1)
-            points.add(new Point(position.x + 1, position. y + 1));
+        if (y < Properties.GRID_SIZE - 1 && x < Properties.GRID_SIZE - 1)
+            tiles.add(Game.getTileAtPos(x + 1, y + 1));
 
-        return points.toArray(new Point[0]);
+        return tiles.toArray(new Tile[0]);
     }
 
     public int getValue() {
         return value;
     }
 
-    public Point getPosition() {
-        return position;
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public boolean isMine() {

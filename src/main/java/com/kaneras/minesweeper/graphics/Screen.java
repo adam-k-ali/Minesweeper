@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-
 /**
  * A class to handle all drawing to the screen.
  */
@@ -52,26 +51,26 @@ public class Screen {
         if (tile.isRevealed()) {
             // Draw fill
             graphics.setFill(Color.LIGHTGRAY);
-            graphics.fillRect(tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+            graphics.fillRect(tile.getX() * getTileSize(), tile.getY() * getTileSize(), getTileSize(), getTileSize());
 
             // Draw border
             graphics.setFill(Color.BLACK);
-            graphics.fillRect(tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), Properties.TILE_BORDER); // Top
-            graphics.fillRect(tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Left
-            graphics.fillRect(tile.getPosition().getX() * getTileSize(), (tile.getPosition().getY() + 1) * getTileSize() - Properties.TILE_BORDER, getTileSize(), Properties.TILE_BORDER); // Bottom
-            graphics.fillRect((tile.getPosition().getX() + 1) * getTileSize() - Properties.TILE_BORDER, tile.getPosition().getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Right
+            graphics.fillRect(tile.getX() * getTileSize(), tile.getY() * getTileSize(), getTileSize(), Properties.TILE_BORDER); // Top
+            graphics.fillRect(tile.getX() * getTileSize(), tile.getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Left
+            graphics.fillRect(tile.getX() * getTileSize(), (tile.getY() + 1) * getTileSize() - Properties.TILE_BORDER, getTileSize(), Properties.TILE_BORDER); // Bottom
+            graphics.fillRect((tile.getX() + 1) * getTileSize() - Properties.TILE_BORDER, tile.getY() * getTileSize(), Properties.TILE_BORDER, getTileSize()); // Right
 
             if (tile.isMine()) {
-                graphics.drawImage(mineImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+                graphics.drawImage(mineImage, tile.getX() * getTileSize(), tile.getY() * getTileSize(), getTileSize(), getTileSize());
             } else {
                 if (tile.getValue() > 0) {
-                    graphics.fillText(String.valueOf(tile.getValue()), (tile.getPosition().getX() + 0.5) * getTileSize(), tile.getPosition().getY() * getTileSize() + graphics.getFont().getSize());
+                    graphics.fillText(String.valueOf(tile.getValue()), (tile.getX() + 0.5) * getTileSize(), tile.getY() * getTileSize() + graphics.getFont().getSize());
                 }
             }
         } else {
-            graphics.drawImage(tileImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+            graphics.drawImage(tileImage, tile.getX() * getTileSize(), tile.getY() * getTileSize(), getTileSize(), getTileSize());
             if (tile.isFlagged()) {
-                graphics.drawImage(flagImage, tile.getPosition().getX() * getTileSize(), tile.getPosition().getY() * getTileSize(), getTileSize(), getTileSize());
+                graphics.drawImage(flagImage, tile.getX() * getTileSize(), tile.getY() * getTileSize(), getTileSize(), getTileSize());
             }
         }
     }

@@ -11,6 +11,6 @@ public class Properties {
 
     // User definable properties
     public static final int GRID_SIZE = 20;
-    public static final double MINE_DENSITY = 0.1;
+    public static final double MINE_DENSITY = 0.7;
 
 }
